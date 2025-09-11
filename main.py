@@ -4,6 +4,7 @@ from pages.home import home_page
 from pages.view_ads import view_ads_page
 from pages.post_ad import post_ad_page
 from pages.edit_ad import edit_ad_page
+from pages.category_ads import category_ads_page
 
 # add header and footer components
 from components.header import header
@@ -50,4 +51,8 @@ def post_ad():
 def edit_ad():
    edit_ad_page()
 
-ui.run(port=8000, title="BeGadgetized Ads Platform")
+@ui.page("/category")
+def category_ads():
+    category_ads_page()
+
+ui.run(port=8000, title="BeGadgetized Ads Platform", storage_secret="your-secret-key-here")
