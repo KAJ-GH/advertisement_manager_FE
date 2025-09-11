@@ -2,27 +2,24 @@ from nicegui import ui
 from components.header import header
 from components.footer import footer
 from typing import List, Dict
+import requests
+from utils.api import base_url
 
 # Sample data for categories.
 CATEGORIES = [
-    {'name': 'All Categories', 'icon': 'apps', 'ads': 'All'},
+    {'name': 'Mobile Devices', 'icon': 'apps', 'ads': 'All'},
     {'name': 'Health & Beauty', 'icon': 'phone_iphone', 'ads': '39,286'},
     {'name': 'Work & Office', 'icon': 'laptop_mac', 'ads': '223,071'},
-    {'name': 'Entertainment', 'icon': 'home', 'ads': '430,240'},
-    {'name': 'Others', 'icon': 'home', 'ads': '330,240'},
+    {'name': 'Entertainment & Sound', 'icon': 'home', 'ads': '430,240'},
+    {'name': 'Other Gadgets', 'icon': 'home', 'ads': '330,240'},
 ]
 
 # Sample data for featured ads
-FEATURED_ADS = [
-    {'title': 'Smartwatch Ultra 2', 'price': '$299', 'image': 'https://picsum.photos/id/101/300/200'},
-    {'title': 'Wireless Headphones', 'price': '$149', 'image': 'https://picsum.photos/id/102/300/200'},
-    {'title': '4K Smart TV', 'price': '$899', 'image': 'https://picsum.photos/id/103/300/200'},
-    {'title': 'VR Headset', 'price': '$450', 'image': 'https://picsum.photos/id/104/300/200'},
-    {'title': 'Gaming Laptop', 'price': '$1,200', 'image': 'https://picsum.photos/id/105/300/200'},
-    {'title': 'Digital Camera', 'price': '$650', 'image': '/assets/laptop-1483974_1280.jpg'},
-]
+FEATURED_ADS = []
 
 def home_page():
+    response=requests.get(f"{base_url}/advert")
+    json_data = response.json()
 
     # Big container
     with ui.element("div").classes("w-full h-[600px] relative rounded-b-3xl shadow-xl overflow-hidden"):
@@ -53,7 +50,7 @@ def home_page():
             # Search and filter section
             with ui.row().classes('w-full max-w-4xl mt-8 p-2 rounded-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm'):
                 # Location dropdown
-                ui.select(['All Categories', 'Health & Beauty', 'Entertainment', 'Home & Office'], value='All Categories') \
+                ui.select(['Mobile Devices', 'Health & Beauty', 'Entertainment & Sound', 'Home & Office'], value='Mobile Devices') \
                     .classes('w-40 bg-transparent text-gray-800 rounded-l-full px-4')
                 
                 # Search bar
@@ -72,7 +69,7 @@ def home_page():
                     for category in CATEGORIES[i:i+chunk_size]:
                         with ui.card().classes(
                             'group w-64 h-56 relative p-0 overflow-hidden transform transition-transform hover:scale-105 shadow-xl cursor-pointer'
-                        ).on('click', lambda e, name=category['name']: ui.navigate.to(f'/view?category={name}')):
+                        ).on('click', lambda e, name=category['name']: ui.navigate.to(f'/category?category={name}')):
                         
                             # Category image background
                             ui.image(f'assets/category_{category["name"].replace(" ", "_")}.jpg').classes('w-full h-full object-cover')
@@ -99,13 +96,14 @@ def home_page():
         ui.label('Featured Ads').classes('text-4xl font-bold text-gray-800 mb-8')
 
         with ui.row().classes('w-full justify-start items-stretch gap-8'):
-            for ad in FEATURED_ADS:
+            for ad in json_data["data"]:
                 with ui.card().classes('w-64 transform transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer'):
-                    ui.image(ad['image']).classes('rounded-t-lg w-full')
+                    ui.image(ad['flyer_url']).classes('rounded-t-lg w-full')
                     with ui.card_section().classes('p-4'):
                         ui.label(ad['title']).classes('text-xl font-semibold mb-2')
                         ui.label(ad['price']).classes('text-2xl font-bold text-blue-600')
-                        ui.button('View Details', on_click=lambda: ui.navigate.to('/view'))
+                        ui.button('View Details', on_click=lambda id=ad["id"]: ui.navigate.to(f'/view?id={id}'))
+                        ui.button('Edit', on_click=lambda: ui.navigate.to('/edit'))
 
     # Call to Action Section (New)
     with ui.element('div').classes('w-full flex items-center justify-center my-12'):
@@ -115,8 +113,7 @@ def home_page():
         ):
             ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
             ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
-            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')) \
-                .classes('bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition-colors')
+            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')).classes('bg-black text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition-colors')
 
     with ui.column().classes("w-screen"):
         footer()
