@@ -8,7 +8,7 @@ from nicegui import ui
     #         ui.icon('person', size='2rem').classes('cursor-pointer')
 
 def header():
-    with ui.row().classes('w-full items-center justify-between bg-purple-700 text-white shadow-lg'):
+    with ui.row().classes('w-full items-center justify-between bg-blue-500 text-white shadow-lg'):
         # Logo or site title
         ui.link('BeGadgetized', target='/').classes('text-white text-3xl font-bold')
         

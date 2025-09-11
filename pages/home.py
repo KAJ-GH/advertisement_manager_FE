@@ -22,13 +22,6 @@ FEATURED_ADS = [
     {'title': 'Digital Camera', 'price': '$650', 'image': '/assets/laptop-1483974_1280.jpg'},
 ]
 
-# A list of image URLs for the carousel
-# CAROUSEL_IMAGES = [
-#     'assets/herocover2.jpg',
-#     'assets/herocover3.png',
-#     'assets/laptop-1483974_1280.jpg'
-# ]
-
 def home_page():
 
     # Big container
@@ -47,18 +40,6 @@ def home_page():
             ui.carousel_slide().classes("w-full h-screen").style(
                 "background-image: url(/assets/cover2.jpg); background-size: cover; background-position: center; width: 100vw; height: 100vh;"
             )
-
-# def home_page():
-#     # Hero section container with a shadow and rounded bottom corners
-#     with ui.column().classes('w-full h-[600px] relative rounded-b-3xl shadow-xl overflow-hidden'):
-        
-#         # Background carousel
-#         with ui.carousel(animated=True, arrows=False, navigation=False).props('arrows autoplay swipe infinite').classes('absolute inset-0 w-screen h-full object-cover z-[-2]').style("width: 100vw; height: 100vh;"):
-#             for image_url in CAROUSEL_IMAGES:
-#                 ui.image(image_url).classes('w-full h-full object-cover')
-        
-        # A static overlay to ensure text is readable over all carousel images
-        #ui.element('div').classes('absolute inset-0 bg-black opacity-40 z-10')
 
         # Header component to be visible on top of the hero section
         with ui.column().classes('absolute z-20 w-full'):
@@ -82,38 +63,6 @@ def home_page():
                 ui.button(icon='search').classes('bg-green-600 hover:bg-green-700 px-3 py-3 text-white rounded-full transition-colors')
 
     # Categories section below the hero
-    # Categories section as a grid slider
-    # with ui.column().classes('w-full items-center -mt-24 relative z-30 p-8'):
-    #     ui.label('Browse Categories').classes('text-3xl font-bold text-gray-800 mb-6')
-
-    #     with ui.carousel().props('arrows swipe infinite').classes('w-full max-w-6xl'):
-    #         # Chunk categories into groups of 3-4 per slide
-    #         chunk_size = 6
-    #         for i in range(0, len(CATEGORIES), chunk_size):
-    #             with ui.carousel_slide().classes("flex gap-6 justify-center items-stretch"):
-    #                 for category in CATEGORIES[i:i+chunk_size]:
-    #                     with ui.card().classes(
-    #                         'w-64 h-56 relative p-0 overflow-hidden transform transition-transform hover:scale-105 shadow-xl cursor-pointer'
-    #                     ):
-    #                         # Category image background
-    #                         ui.image(f'assets/category_{category["name"].replace(" ", "_")}.jpg').classes('w-full h-full object-cover')
-
-    #                         # Dark overlay
-    #                         ui.element('div').classes('absolute inset-0 bg-black opacity-40')
-
-    #                         # Category info
-    #                         with ui.column().classes(
-    #                             'absolute inset-0 flex items-center justify-center text-white text-center p-4 z-10'
-    #                         ):
-    #                             ui.icon(category['icon']).classes('text-3xl mb-2')
-    #                             ui.label(category['name']).classes('text-xl font-bold')
-    #                             if category['ads'] != 'All':
-    #                                 ui.label(f'{category["ads"]} ads').classes('text-sm text-gray-300 mt-1')
-
-    #                         # Hover "View" button
-    #                         ui.button('View', on_click=lambda name=category['name']: ui.navigate.to(f'/view?category={name}')) \
-    #                             .classes('absolute bottom-4 right-4 bg-yellow-400 text-gray-900 rounded-full px-4 py-2 opacity-0 hover:opacity-100 transition-opacity')
-
     with ui.column().classes('w-full items-center -mt-24 relative z-30 p-8'):
         with ui.carousel().props('arrows swipe infinite').classes('w-full max-w-6xl txt-purple'):
             # Chunk categories into groups of 3-4 per slide
@@ -122,8 +71,9 @@ def home_page():
                 with ui.carousel_slide().classes("flex gap-6 justify-center items-stretch bg-purple-700"):
                     for category in CATEGORIES[i:i+chunk_size]:
                         with ui.card().classes(
-                            'w-64 h-56 relative p-0 overflow-hidden transform transition-transform hover:scale-105 shadow-xl cursor-pointer'
-                        ):
+                            'group w-64 h-56 relative p-0 overflow-hidden transform transition-transform hover:scale-105 shadow-xl cursor-pointer'
+                        ).on('click', lambda e, name=category['name']: ui.navigate.to(f'/view?category={name}')):
+                        
                             # Category image background
                             ui.image(f'assets/category_{category["name"].replace(" ", "_")}.jpg').classes('w-full h-full object-cover')
 
@@ -139,12 +89,12 @@ def home_page():
                                 if category['ads'] != 'All':
                                     ui.label(f'{category["ads"]} ads').classes('text-sm text-gray-300 mt-1')
 
-                            # Hover "View" button
-                            ui.button('View', on_click=lambda name=category['name']: ui.navigate.to(f'/view?category={name}')) \
-                                .classes('absolute bottom-4 right-4 bg-yellow-400 text-gray-900 rounded-full px-4 py-2 opacity-0 hover:opacity-100 transition-opacity')
-    
+                            ui.button(
+                                'View'
+                            ).classes(
+                                'absolute bottom-4 right-4 bg-yellow-400 text-gray-900 rounded-full px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'
+                            )
     # Product grid section
-    # ---
     with ui.column().classes('w-full p-8 mt-12'):
         ui.label('Featured Ads').classes('text-4xl font-bold text-gray-800 mb-8')
 
@@ -156,6 +106,17 @@ def home_page():
                         ui.label(ad['title']).classes('text-xl font-semibold mb-2')
                         ui.label(ad['price']).classes('text-2xl font-bold text-blue-600')
                         ui.button('View Details', on_click=lambda: ui.navigate.to('/view'))
+
+    # Call to Action Section (New)
+    with ui.element('div').classes('w-full flex items-center justify-center my-12'):
+        with ui.element('div').classes(
+            'w-full max-w-5xl rounded-3xl p-10 flex flex-col items-center text-center text-white '
+            'bg-green-600 bg-opacity-90 backdrop-filter backdrop-blur-sm shadow-2xl space-y-6'
+        ):
+            ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
+            ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
+            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')) \
+                .classes('bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition-colors')
 
     with ui.column().classes("w-screen"):
         footer()
