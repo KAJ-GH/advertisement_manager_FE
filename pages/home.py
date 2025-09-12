@@ -114,7 +114,3 @@ def home_page():
             ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
             ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
             ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
-
-    with ui.column().classes("w-screen"):
-        footer()
-#.classes('s')bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color

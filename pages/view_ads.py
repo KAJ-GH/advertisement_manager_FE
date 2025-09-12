@@ -61,7 +61,7 @@ def view_ads_page():
                             ui.button('Cancel', on_click=dialog.close).classes('bg-gray-500 text-white px-4 py-2 rounded-lg')
                             
                             def confirm_delete():
-                                response = requests.get(f"{base_url}/advert/{ad_id}")
+                                response = requests.delete(f"{base_url}/advert/{ad_id}")
                                 if response.status_code == 200:
                                     ui.notify('Advertisement deleted successfully!', type='positive')
                                     dialog.close()
@@ -79,3 +79,7 @@ def view_ads_page():
                     ui.button('Delete Advert', icon='delete', on_click=delete_advert).classes(
                         'flex-1 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors'
                     )
+                ui.button('Back Home', on_click=lambda: ui.navigate.to('/home')).classes(
+                        'flex-1 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors'
+                    )
+            

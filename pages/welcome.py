@@ -31,11 +31,12 @@ def welcome_page():
 
         # Main content container with a sliding animation
         with ui.column().classes('relative z-10 text-white text-center items-center p-8 content-animation'):
+            ui.image('/assets/logo.png').classes('py-6 px-10 h-[60px] w-[50px] items-center rounded-lg shadow-xl')
             ui.label('Welcome to BeGagetized eStore').classes('text-5xl font-bold mb-4')
             ui.label('Discover amazing products and exclusive deals.').classes('text-xl font-light mb-8')
 
             # The call-to-action button
-            ui.button('Your Journey to BeGadgetized starts Here ▶', on_click=lambda: ui.navigate.to('/home')).classes('mt-16 px-12 items-center py-4 text-xl font-semibold bg-blue-600 hover:bg-blue-700 rounded-full transition-colors duration-300 transform hover:scale-105')
+            ui.button('Your Journey to BeGadgetized starts Here ▶', on_click=lambda: ui.navigate.to('/home')).classes('mt-16 px-12 items-center py-4 text-xl font-semibold bg-purple hover:bg-blue-700 rounded-full transition-colors duration-300 transform hover:scale-105')
 
 
 # from nicegui import ui

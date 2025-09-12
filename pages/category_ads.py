@@ -1,6 +1,6 @@
 from nicegui import ui
 from components.header import header
-from components.footer import footer
+#from components.footer import footer
 import requests
 from utils.api import base_url
 
@@ -89,7 +89,7 @@ def category_ads_page():
         with ui.element('div').classes('w-full bg-gradient-to-r from-blue-600 to-purple-600 py-16'):
             with ui.column().classes('w-full max-w-6xl mx-auto px-8 text-center'):
                 ui.label(f'{category} Ads').classes('text-4xl md:text-5xl font-bold text-white mb-4')
-                ui.label(f'Discover {len(filtered_ads)} amazing deals in {category}').classes('text-xl text-blue-100')
+                ui.label(f'Discover amazing deals in {category}').classes('text-xl text-blue-100')
         
         # Filters and search section
         with ui.row().classes('w-full max-w-6xl mx-auto px-8 py-6 gap-4'):
@@ -121,8 +121,6 @@ def category_ads_page():
                 with ui.element('div').classes('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'):
                     for ad in filtered_ads:
                         create_ad_card(ad)
-
-        footer()
 
 def create_ad_card(ad):
     """Create an individual ad card"""
