@@ -32,21 +32,28 @@ def welcome():
 @ui.page("/home")
 def home():
     home_page()
+    footer()
 
 @ui.page("/view")
 def view_ads():
     view_ads_page()
+    footer()
 
 @ui.page("/add")
 def post_ad():
+    header()
     post_ad_page()
+    
 
 @ui.page("/edit")
 def edit_ad():
+   header()
    edit_ad_page()
+   
 
 @ui.page("/category")
 def category_ads():
     category_ads_page()
+    footer()
 
 ui.run(port=8000, title="BeGadgetized Ads Platform", storage_secret="your-secret-key-here")
