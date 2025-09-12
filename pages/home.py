@@ -44,17 +44,17 @@ def home_page():
 
         # Hero content - Main title and search bar
         with ui.column().classes('relative z-20 w-full h-full flex flex-col items-center justify-center p-8'):
-            ui.label('Discover. Post. Sell.').classes('text-6xl font-bold text-white mb-4')
-            ui.label('Your Hub for Gadget Ads').classes('text-2xl text-white font-light')
+            ui.label('Discover. Post. Sell.').classes('text-8xl font-bold text-white mb-4')
+            ui.label('Your No.1️⃣ Hub for Gadgets, Appliances & Electronics').classes('text-3xl text-white font-light')
 
             # Search and filter section
             with ui.row().classes('w-full max-w-4xl mt-8 p-2 rounded-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm'):
                 # Location dropdown
-                ui.select(['Mobile Devices', 'Health & Beauty', 'Entertainment & Sound', 'Home & Office'], value='Mobile Devices') \
-                    .classes('w-40 bg-transparent text-gray-800 rounded-l-full px-4')
+                #ui.select(['Mobile Devices', 'Health & Beauty', 'Entertainment & Sound', 'Home & Office'], value='Mobile Devices') \
+                    #.classes('w-40 bg-transparent text-gray-800 rounded-l-full px-4')
                 
                 # Search bar
-                ui.input(placeholder='What are you looking for?').classes('flex-grow px-6 py-2 text-lg text-gray-800 bg-transparent border-none focus:outline-none')
+                ui.input(placeholder='What are you looking for?').classes('flex-grow px-8 py-2 text-lg text-gray-800 bg-transparent border-none focus:outline-none')
                 
                 # Search button
                 ui.button(icon='search').classes('bg-green-600 hover:bg-green-700 px-3 py-3 text-white rounded-full transition-colors')
