@@ -26,20 +26,20 @@ def home_page():
 
         # Background carousel
         with ui.carousel().props("arrows autoplay swipe infinite").classes(
-            "absolute inset-0 w-full h-screen z-[-2]"
+            "absolute inset-0 w-full h-full z-[-2]"
         ).style("width: 100vw; height: 100vh;"):
-            ui.carousel_slide().classes("w-full h-screen").style(
+            ui.carousel_slide().classes("w-full h-full").style(
                 "background-image: url(/assets/cover.jpg); background-size: cover; background-position: center; width: 100vw; height: 100vh;"
             )
-            ui.carousel_slide().classes("w-full h-screen").style(
+            ui.carousel_slide().classes("w-full h-full").style(
                 "background-image: url(/assets/cover4.png); background-size: cover; background-position: center; width: 100vw; height: 100vh;"
             )
-            ui.carousel_slide().classes("w-full h-screen").style(
+            ui.carousel_slide().classes("w-full h-full").style(
                 "background-image: url(/assets/cover2.jpg); background-size: cover; background-position: center; width: 100vw; height: 100vh;"
             )
 
         # Header component to be visible on top of the hero section
-        with ui.column().classes('absolute z-20 w-full'):
+        with ui.column().classes('relative z-30 w-full'):
             header()
 
         # Hero content - Main title and search bar
@@ -109,11 +109,12 @@ def home_page():
     with ui.element('div').classes('w-full flex items-center justify-center my-12'):
         with ui.element('div').classes(
             'w-full max-w-5xl rounded-3xl p-10 flex flex-col items-center text-center text-white '
-            'bg-green-600 bg-opacity-90 backdrop-filter backdrop-blur-sm shadow-2xl space-y-6'
+            'bg-gradient-to-r from-blue-600 to-purple-600 bg-opacity-90 backdrop-filter backdrop-blur-sm shadow-2xl space-y-6'
         ):
             ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
             ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
-            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')).classes('bg-black text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition-colors')
+            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
 
     with ui.column().classes("w-screen"):
         footer()
+#.classes('s')bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color

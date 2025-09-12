@@ -18,7 +18,7 @@ def post_ad_page():
     with ui.element('div').classes('w-full h-screen relative').style('background-image: url(assests/laptop-1478822_640.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;'):
         
         # Dark overlay for better text readability
-        ui.element('div').classes('absolute inset-0 bg-black bg-opacity-50')
+        #ui.element('div').classes('absolute inset-0 bg-black bg-opacity-50')
         
         # Centered form container
         with ui.element('div').classes('relative z-10 w-full h-full flex items-center justify-center p-8'):
@@ -45,5 +45,8 @@ def post_ad_page():
                 #         ui.notify('Please fill in all fields correctly.', type='warning')
                 #         return
                 #     ui.notify('Advert created successfully!', type='positive')
-
-                ui.button('Save Advert', on_click=lambda:save_advert({"title":title_input.value, "description":description_input.value, "price":price_input.value, "category":category_input.value, "flyer": flyer_content })).classes('bg-green-500 text-white w-full mt-4')
+                with ui.row().classes('w-full gap-3 mt-4'):
+                  ui.button('Save Advert', on_click=lambda:save_advert({"title":title_input.value, "description":description_input.value, "price":price_input.value, "category":category_input.value, "flyer": flyer_content })).classes('flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition-colors')
+                  ui.button('Back Home', on_click=lambda: ui.navigate.to('/home')).classes(
+                        'flex-1 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors'
+                    )

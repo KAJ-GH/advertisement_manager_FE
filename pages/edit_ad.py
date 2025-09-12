@@ -14,7 +14,7 @@ def edit_ad_page():
     with ui.element('div').classes('w-full h-screen relative').style('background-image: url(assests/ecommerce-3640321_1280.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;'):
         
         # Dark overlay for better text readability
-        ui.element('div').classes('absolute inset-0 bg-black bg-opacity-50')
+        #ui.element('div').classes('absolute inset-0 bg-black bg-opacity-50')
         
         # Centered form container
         with ui.element('div').classes('relative z-10 w-full h-full flex items-center justify-center p-8'):

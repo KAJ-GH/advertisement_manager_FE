@@ -21,13 +21,7 @@ ui.add_head_html('''
 
 ''')
 ui.add_head_html('<link rel="stylesheet" href="/assets/reset.css" />')
-
-# Wrapper for page
-# def page_layout(content_fn):
-#     with ui.column().classes('flex-1 bg-gray-50'):
-#         header()
-#         content_fn()              
-#         footer()                   
+         
 
 # Define pages routes
 @ui.page("/")

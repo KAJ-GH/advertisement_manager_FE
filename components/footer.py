@@ -2,7 +2,7 @@ from nicegui import ui, ElementFilter
 
 def footer():
     # Use ui.footer() for a clean footer component.
-        with ui.row().classes('w-full justify-around bg-blue-500'):
+        with ui.row().classes('w-full justify-around bg-gradient-to-r from-blue-600 to-purple-600'):
             with ui.column().classes('items-center'):
                 ui.label('Gadgetized').classes('text-2xl font-bold mb-2')
                 ui.label('Your one-stop shop for electronics').classes('text-sm text-gray-400')
@@ -32,7 +32,7 @@ def footer():
     
             
 
-            ui.label('© 2025 Gadgetized. All rights reserved.').classes('bg-blue-500 text-white w-full text-center mt-8 text-xs')
+            ui.label('© 2025 Gadgetized. All rights reserved.').classes('bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full text-center mt-8 text-xs')
     
     
         # with ui.row().classes('w-full max-w-6xl mx-auto items-start justify-between p-4'):
