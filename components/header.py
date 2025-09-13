@@ -2,17 +2,27 @@ from nicegui import ui
 
     
 def header():
-    with ui.row().classes('w-full items-center justify-between bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg backdrop-blur-sm'):
-        # Logo or site title
-        ui.link('BeGadgetized', target='/').classes('text-white text-3xl font-bold')
+    #A modern, semi-transparent header that sits on top of hero sections.
+    with ui.row().classes(
+        'w-full items-center justify-between px-8 py-3 '
+        'bg-gradient-to-r from-blue-900 to-purple-700 bg-opacity-25 backdrop-blur-sm text-white '
+        'border-b border-gray-100 border-opacity-10'
+    ):
+        # Clickable logo that navigates to the welcome page
+        with ui.link(target='/').classes('flex items-center gap-2'):
+            ui.image('/assets/logo.png').classes('w-8 h-8')
+            ui.label('BeGadgetized').classes('text-2xl font-bold hover:text-purple-300 transition-colors')
         
         # Navigation links
-        with ui.row().classes('items-center gap-4 uppercase'):
-            ui.link('Home', target='/home').classes('text-white hover:text-green-700 font-semibold')
-            ui.link('All Ads').classes('text-white hover:text-green-700 font-semibold')
-            ui.link('Contact').classes('text-white hover:text-green-700 font-semibold')
-            
+        with ui.row().classes('items-center gap-8 uppercase text-sm font-semibold'):
+            ui.link('Home', target='/home').classes('hover:text-purple-300 transition-colors')
+            # This link can be pointed to a dedicated "all ads" page in the future
+            ui.link('All Ads', target='/home').classes('hover:text-purple-300 transition-colors')
+            ui.link('Contact', target='#').classes('hover:text-purple-300 transition-colors')
             
         # Vendor-specific buttons
-        with ui.row().classes('items-center gap-4 bg-puple-500'):
-            ui.button('Sell', on_click=lambda: ui.navigate.to('/add')).classes('px-6 py-2 bg-purple-400 text-gray-800 font-semibold rounded-full hover:bg-gray-200 transition-colors')
+        with ui.row().classes('items-center'):
+            # Corrected navigation to '/add_event' and improved button style
+            ui.button('Sell', icon='add_circle_outline', on_click=lambda: ui.navigate.to('/add_event')).classes(
+                'bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-full transition-colors'
+            )

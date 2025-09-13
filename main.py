@@ -39,13 +39,13 @@ def view_ads():
     view_ads_page()
     footer()
 
-@ui.page("/add")
+@ui.page("/add_event")
 def post_ad():
     header()
     post_ad_page()
     
 
-@ui.page("/edit")
+@ui.page("/edit_event")
 def edit_ad():
    header()
    edit_ad_page()

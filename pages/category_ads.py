@@ -27,7 +27,7 @@ def get_sample_ads():
             'id': '3',
             'title': 'Gaming Headset',
             'price': 150.00,
-            'category': 'Entertainment & Audio',
+            'category': 'Entertainment & Sound',
             'image': '/assets/Category_Entertainment_&_Sound.jpg',
             'description': 'High-quality gaming headset with noise cancellation'
         },
@@ -51,7 +51,7 @@ def get_sample_ads():
             'id': '6',
             'title': 'Wireless Speaker',
             'price': 200.00,
-            'category': 'Entertainment & Audio',
+            'category': 'Entertainment & Sound',
             'image': '/assets/Category_Entertainment_&_Sound.jpg',
             'description': 'Portable Bluetooth speaker with excellent sound quality'
         },
@@ -70,17 +70,28 @@ def get_sample_ads():
             'category': 'Health & Beauty',
             'image': '/assets/category_Health_&_Beauty.jpg',
             'description': 'Smart fitness tracker with heart rate monitoring'
-        }
+        },
+        {
+            'id': '9',
+            'title': 'Camera Drone',
+            'price': 850.00,
+            'category': 'Other Gadgets',
+            'image': '/assets/cover.jpg',
+            'description': '4K camera drone with 30-minute flight time.'
+        },
     ]
 
 def category_ads_page():
     q = ui.context.client.request.query_params
     category = q.get('category')
 
-    response=requests.get(f"{base_url}/advert")
-    json_data = response.json()
+    # To display the dummy data, we call get_sample_ads() instead of the API.
+    all_ads = get_sample_ads()
     
-    filtered_ads = json_data["data"]
+    # Filter ads based on the category from the URL query
+    filtered_ads = [
+        ad for ad in all_ads if ad.get('category') == category
+    ]
 
     with ui.column().classes('w-full min-h-screen bg-gray-50'):
         header()
@@ -127,8 +138,10 @@ def create_ad_card(ad):
     with ui.card().classes('w-full max-w-sm transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden'):
         
         # Ad image
-        if ad.get('flyer_url'):
-            ui.image(ad['flyer_url']).classes('w-full h-48 object-cover')
+        # Check for 'flyer_url' (from API) or 'image' (from dummy data)
+        image_url = ad.get('flyer_url') or ad.get('image')
+        if image_url:
+            ui.image(image_url).classes('w-full h-48 object-cover')
         else:
             # Placeholder image
             with ui.element('div').classes('w-full h-48 bg-gray-200 flex items-center justify-center'):
@@ -153,9 +166,9 @@ def create_ad_card(ad):
                 ui.button('View', icon='visibility', on_click=lambda a=ad: view_ad_details(a)).classes(
                     'flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors'
                 )
-                ui.button('Edit', icon='edit', on_click=lambda a=ad: edit_ad_details(a)).classes(
-                    'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors'
-                )
+                #ui.button('Edit', icon='edit', on_click=lambda a=ad: edit_ad_details(a)).classes(
+                #    'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors'
+                #)
 
 def view_ad_details(ad):
     """Navigate to ad details page"""
@@ -169,6 +182,6 @@ def edit_ad_details(ad):
     """Navigate to edit ad page"""
     ad_id = ad.get('id', ad.get('_id', ''))
     if ad_id:
-        ui.navigate.to(f'/edit?id={ad_id}')
+        ui.navigate.to(f'/edit_event?id={ad_id}')
     else:
-        ui.navigate.to('/edit')
+        ui.navigate.to('/edit_event')

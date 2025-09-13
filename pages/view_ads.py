@@ -6,16 +6,37 @@ def view_ads_page():
     q = ui.context.client.request.query_params
     ad_id = q.get('id')
 
-    response = requests.get(f"{base_url}/advert/{ad_id}")
-    json_data = response.json()
-    advert = json_data["data"]
+    if not ad_id:
+        ui.notify("No advertisement ID provided.", type='negative')
+        ui.navigate.to('/home')
+        return
+
+    try:
+        response = requests.get(f"{base_url}/advert/{ad_id}")
+        response.raise_for_status()
+        json_data = response.json()
+        
+        if "data" not in json_data or not json_data["data"]:
+            ui.notify("Advertisement not found.", type='negative')
+            ui.navigate.to('/home')
+            return
+            
+        advert = json_data["data"]
+    except requests.exceptions.RequestException as e:
+        ui.notify(f"Failed to load advertisement: {str(e)}", type='negative')
+        ui.navigate.to('/home')
+        return
+    except (KeyError, ValueError) as e:
+        ui.notify("Invalid response from server.", type='negative')
+        ui.navigate.to('/home')
+        return
 
 
     with ui.row().classes('w-full h-screen font-sans'):
 
         # --- LEFT SIDE: Image ---
         with ui.element('div').classes('flex-1 h-screen relative'):
-            ui.image(advert['flyer_url']).classes('w-full h-full object-cover')
+            ui.image(advert.get('flyer_url', '/assets/placeholder.png')).classes('w-full h-full object-cover')
 
             # View text overlay
             # with ui.element('div').classes('absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center'):
@@ -33,23 +54,23 @@ def view_ads_page():
                 with ui.element('div').classes('space-y-4'):
                     with ui.element('div').classes('p-4 bg-gray-50 rounded-lg'):
                         ui.label('Title').classes('text-sm font-semibold text-gray-600 mb-1')
-                        ui.label(advert['title']).classes('text-lg font-medium text-gray-800')
+                        ui.label(advert.get('title', 'N/A')).classes('text-lg font-medium text-gray-800')
                     
                     with ui.element('div').classes('p-4 bg-gray-50 rounded-lg'):
                         ui.label('Description').classes('text-sm font-semibold text-gray-600 mb-1')
-                        ui.label(advert['description']).classes('text-lg text-gray-800')
+                        ui.label(advert.get('description', 'N/A')).classes('text-lg text-gray-800')
                     
                     with ui.element('div').classes('p-4 bg-gray-50 rounded-lg'):
                         ui.label('Price').classes('text-sm font-semibold text-gray-600 mb-1')
-                        ui.label(f'₵{advert["price"]:.2f}').classes('text-2xl font-bold text-blue-600')
+                        ui.label(f'₵{advert.get("price", 0):.2f}').classes('text-2xl font-bold text-blue-600')
                     
                     with ui.element('div').classes('p-4 bg-gray-50 rounded-lg'):
                         ui.label('Category').classes('text-sm font-semibold text-gray-600 mb-1')
-                        ui.label(advert['category']).classes('text-lg text-gray-800')
+                        ui.label(advert.get('category', 'N/A')).classes('text-lg text-gray-800')
 
                 # Action buttons
                 def edit_advert():
-                    ui.navigate.to('/edit_event')
+                    ui.navigate.to(f'/edit_event?id={ad_id}')
                 
                 def delete_advert():
                     # Confirmation dialog

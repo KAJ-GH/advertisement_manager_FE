@@ -7,19 +7,31 @@ from utils.api import base_url
 
 # Sample data for categories.
 CATEGORIES = [
-    {'name': 'Mobile Devices', 'icon': 'apps', 'ads': 'All'},
-    {'name': 'Health & Beauty', 'icon': 'phone_iphone', 'ads': '39,286'},
-    {'name': 'Work & Office', 'icon': 'laptop_mac', 'ads': '223,071'},
-    {'name': 'Entertainment & Sound', 'icon': 'home', 'ads': '430,240'},
-    {'name': 'Other Gadgets', 'icon': 'home', 'ads': '330,240'},
+    {'name': 'Mobile Devices', 'icon': 'phone_iphone', 'ads': 'Browse'},
+    {'name': 'Home & Office', 'icon': 'work', 'ads': 'Browse'},
+    {'name': 'Entertainment & Sound', 'icon': 'headset', 'ads': 'Browse'},
+    {'name': 'Health & Beauty', 'icon': 'spa', 'ads': 'Browse'},
+    {'name': 'Other Gadgets', 'icon': 'devices_other', 'ads': 'Browse'},
 ]
 
 # Sample data for featured ads
 FEATURED_ADS = []
 
 def home_page():
-    response=requests.get(f"{base_url}/advert")
-    json_data = response.json()
+    try:
+        response = requests.get(f"{base_url}/advert")
+        response.raise_for_status()
+        json_data = response.json()
+        
+        if "data" not in json_data:
+            json_data = {"data": []}
+            ui.notify("No advertisements available at the moment.", type='info')
+    except requests.exceptions.RequestException as e:
+        ui.notify(f"Failed to load advertisements: {str(e)}", type='negative')
+        json_data = {"data": []}
+    except (KeyError, ValueError) as e:
+        ui.notify("Invalid response from server.", type='negative')
+        json_data = {"data": []}
 
     # Big container
     with ui.element("div").classes("w-full h-[600px] relative rounded-b-3xl shadow-xl overflow-hidden"):
@@ -96,14 +108,16 @@ def home_page():
         ui.label('Featured Ads').classes('text-4xl font-bold text-gray-800 mb-8')
 
         with ui.row().classes('w-full justify-start items-stretch gap-8'):
-            for ad in json_data["data"]:
+            for ad in json_data.get("data", []):
                 with ui.card().classes('w-64 transform transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer'):
-                    ui.image(ad['flyer_url']).classes('rounded-t-lg w-full')
+                    # Use 'flyer_url' which is provided by the API, with a fallback
+                    ui.image(ad.get('flyer_url', 'assets/placeholder.png')).classes('rounded-t-lg w-full h-48 object-cover')
                     with ui.card_section().classes('p-4'):
-                        ui.label(ad['title']).classes('text-xl font-semibold mb-2')
-                        ui.label(ad['price']).classes('text-2xl font-bold text-blue-600')
-                        ui.button('View Details', on_click=lambda id=ad["id"]: ui.navigate.to(f'/view?id={id}'))
-                        ui.button('Edit', on_click=lambda: ui.navigate.to('/edit'))
+                        ui.label(ad.get('title', 'No Title')).classes('text-xl font-semibold mb-2')
+                        ui.label(f"₵{ad.get('price', 0):.2f}").classes('text-2xl font-bold text-blue-600')
+                        ad_id = ad.get('id') or ad.get('_id')
+                        ui.button('View Details', on_click=lambda ad_id=ad_id: ui.navigate.to(f'/view?id={ad_id}'))
+                        ui.button('Edit', on_click=lambda ad_id=ad_id: ui.navigate.to(f'/edit_event?id={ad_id}'))
 
     # Call to Action Section (New)
     with ui.element('div').classes('w-full flex items-center justify-center my-12'):
@@ -113,4 +127,4 @@ def home_page():
         ):
             ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
             ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
-            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
+            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add_event')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
