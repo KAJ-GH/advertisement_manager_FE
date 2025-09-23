@@ -1,14 +1,14 @@
-from nicegui import ui, app, ElementFilter
+from nicegui import ui, app
 from pages.welcome import welcome_page
 from pages.home import home_page
 from pages.view_ads import view_ads_page
-from pages.post_ad import post_ad_page
-from pages.edit_ad import edit_ad_page
 from pages.category_ads import category_ads_page
-
-# add header and footer components
-from components.header import header
 from components.footer import footer
+from pages.vendor.dashboard import *
+from pages.vendor.ads import *
+from pages.vendor.post_ad import *
+from pages.vendor.edit_ad import *
+
 
 # Expose the assets folder to the nicegui server
 app.add_static_files("/assets", "assets")
@@ -38,19 +38,7 @@ def home():
 def view_ads():
     view_ads_page()
     footer()
-
-@ui.page("/add_event")
-def post_ad():
-    header()
-    post_ad_page()
-    
-
-@ui.page("/edit_event")
-def edit_ad():
-   header()
-   edit_ad_page()
    
-
 @ui.page("/category")
 def category_ads():
     category_ads_page()

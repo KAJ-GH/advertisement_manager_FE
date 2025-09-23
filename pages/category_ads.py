@@ -1,8 +1,6 @@
 from nicegui import ui
 from components.header import header
 #from components.footer import footer
-import requests
-from utils.api import base_url
 
 def get_sample_ads():
     """Return sample ads data with local asset images"""
@@ -12,7 +10,7 @@ def get_sample_ads():
             'title': 'MacBook Pro 16-inch',
             'price': 2500.00,
             'category': 'Mobile Devices',
-            'image': '/assets/laptop-1483974_1280.jpg',
+            'image': 'assets/Category_Mobile_Devices/iphone.jpg',
             'description': 'Excellent condition MacBook Pro with M1 chip'
         },
         {
@@ -85,7 +83,6 @@ def category_ads_page():
     q = ui.context.client.request.query_params
     category = q.get('category')
 
-    # To display the dummy data, we call get_sample_ads() instead of the API.
     all_ads = get_sample_ads()
     
     # Filter ads based on the category from the URL query
@@ -109,8 +106,8 @@ def category_ads_page():
             
             # Sort dropdown
             sort_select = ui.select(
-                ['Newest First', 'Price: Low to High', 'Price: High to Low', 'Title A-Z'],
-                value='Newest First'
+                ['Category', 'Price: Low to High', 'Price: High to Low', 'Title A-Z'],
+                value='Category'
             ).classes('w-48')
             
             # Filter button
@@ -137,9 +134,8 @@ def create_ad_card(ad):
     """Create an individual ad card"""
     with ui.card().classes('w-full max-w-sm transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden'):
         
-        # Ad image
-        # Check for 'flyer_url' (from API) or 'image' (from dummy data)
-        image_url = ad.get('flyer_url') or ad.get('image')
+        # Ad image from dummy data
+        image_url = ad.get('image')
         if image_url:
             ui.image(image_url).classes('w-full h-48 object-cover')
         else:
@@ -166,9 +162,6 @@ def create_ad_card(ad):
                 ui.button('View', icon='visibility', on_click=lambda a=ad: view_ad_details(a)).classes(
                     'flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors'
                 )
-                #ui.button('Edit', icon='edit', on_click=lambda a=ad: edit_ad_details(a)).classes(
-                #    'flex-1 bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors'
-                #)
 
 def view_ad_details(ad):
     """Navigate to ad details page"""
