@@ -50,7 +50,6 @@ def category_ads():
 @ui.page("/vendor/post_ad")
 def post_ad():
     post_ad_page()
-    footer()
 
 @ui.page("/login")
 def login():

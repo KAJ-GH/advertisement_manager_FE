@@ -1,4 +1,4 @@
-from nicegui import ui
+from nicegui import ui, app
 # from components.cart import cart_sidebar
 
 # Dummy product data for the cart
@@ -23,22 +23,27 @@ def header():
             # This link can be pointed to a dedicated "all ads" page in the future
             ui.link('Trending Ads', target='/category_ads').classes('hover:text-purple-300 transition-colors no-underline')
             ui.link('Blog', target='/contact').classes('hover:text-purple-300 transition-colors no-underline')
-        # Right side icons
+
+        # Right side icons and buttons
         with ui.row().classes('gap-4 items-center'):
-            ui.link('Login', '/login').classes('text-gray-700 hover:text-pink-600 no-underline')
-            ui.link('Register', '/signup').classes('text-gray-700 hover:text-pink-600 no-underline')
-            
             ui.icon('search', size='xs').classes('text-gray-700 cursor-pointer')
-        # Vendor-specific buttons
-        with ui.row().classes('items-center'):
-            #with ui.icon('person', size='lg').classes('cursor-pointer text-white hover:text-green-300 relative') as profile_icon:
-            with ui.button('Vendor', icon='person').classes(
-                'cursor-pointer text-white hover:text-green-300 relative bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-full transition-colors'
-            ) as profile_icon:
-                with ui.menu().props('anchor="bottom end"') as menu: # anchor="bottom end" makes it open below and aligned to the right
-                    # "My shop" / Vendor Dashboard
-                    ui.menu_item('My shop', on_click=lambda: ui.navigate.to('/vendor/vendor_ads')).props('icon="storefront"')
-                    ui.menu_item('Make Money', on_click=lambda: ui.navigate.to('/vendor/post_ad')).props('icon="attach_money"')
+            with ui.button_group().props('outline rounded unelevated'):
+                    ui.button('Login', on_click=lambda: ui.navigate.to('/login')).props(' outline color=primary')
+                    ui.button('Register', on_click=lambda: ui.navigate.to('/signup')).props('color=primary unelevated')
+
+            # --- Development: Always show vendor menu ---
+            # This replaces the conditional login/logout buttons for easy access during development.
+            with ui.button(icon='person').props('round color=primary unelevated'):
+                with ui.menu().props('anchor="bottom end" self="top end"'):
+                    ui.menu_item('My Shop', on_click=lambda: ui.navigate.to('/vendor/vendor_ads')).props('icon="storefront"')
+                    ui.menu_item('Post Ad', on_click=lambda: ui.navigate.to('/vendor/post_ad')).props('icon="add_circle"')
                     ui.menu_item('Dashboard', on_click=lambda: ui.navigate.to('/vendor/dashboard')).props('icon="bar_chart"')
                     ui.separator()
-                    ui.menu_item('Log out', on_click=lambda: ui.navigate.to('/logout')).props('icon="logout"')              
+                    
+                    def handle_logout():
+                        """Clear user session and redirect to home page."""
+                        app.storage.user.clear()
+                        ui.navigate.to('/home')
+                        ui.notify('You have been logged out.', color='positive')
+
+                    ui.menu_item('Logout', on_click=handle_logout).props('icon="logout"')

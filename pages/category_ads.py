@@ -1,4 +1,4 @@
-from nicegui import ui
+from nicegui import ui, app
 from components.header import header
 
 def get_sample_ads():
@@ -114,17 +114,26 @@ def get_sample_ads():
         },
         {
             'id': '13',
-            'title': 'Camera Drone',
+            'title': 'Airfyer',
             'price': 850.00,
             'vendor_id': 'vendor1',
             'category': 'Gadgets',
-            'image': 'assets/Gadgets/drone.jpg',
-            'description': '4K camera drone with 30-minute flight time.'
+            'image': 'assets/category_Others/others9.jpg',
+            'description': 'Latest affordable airfryer with good quality '
+        },
+        {
+            'id': '18',
+            'title': 'Samsung Smart Television',
+            'price': 4350.00,
+            'vendor_id': 'vendor1',
+            'category': 'Office',
+            'image': 'assets/Category_Home_&_Office/TV1.jpg',
+            'description': 'A smart television with good quality'
         },
         {
             'id': '14',
             'title': 'Home Smart',
-            'price': 4450.00,
+            'price': 1450.00,
             'vendor_id': 'vendor2',
             'category': 'Office',
             'image': 'assets/Category_Home_&_Office/home2.jpg',
@@ -133,7 +142,7 @@ def get_sample_ads():
         {
             'id': '15',
             'title': 'Mouse',
-            'price': 4450.00,
+            'price': 550.00,
             'vendor_id': 'vendor2',
             'category': 'Office',
             'image': 'assets/Category_Home_&_Office/mouse.jpg',
@@ -142,47 +151,56 @@ def get_sample_ads():
         {
             'id': '16',
             'title': 'Printer',
-            'price': 4450.00,
+            'price': 450.00,
             'vendor_id': 'vendor2',
             'category': 'Office',
             'image': 'assets/Category_Home_&_Office/printer.jpg',
             'description': 'For printing'
         },
         {
-            'id': '17',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
-            'vendor_id': 'vendor1',
-            'category': 'Office',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
-        },
-        {
             'id': '18',
             'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'price': 4350.00,
             'vendor_id': 'vendor1',
             'category': 'Office',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
+            'image': 'assets/Category_Home_&_Office/TV2.jpg',
             'description': 'A smart television with good quality'
         },
         {
             'id': '19',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Office Desk',
+            'price': 2450.00,
             'vendor_id': 'vendor1',
             'category': 'Office',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
+            'image': 'assets/Category_Home_&_Office/office1.jpg',
             'description': 'A smart television with good quality'
         },
         {
             'id': '20',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Ringlight',
+            'price': 119.00,
             'vendor_id': 'vendor2',
             'category': 'Health',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_Health_&_Beauty/beauty4.jpg',
+            'description': 'Modern rightlight with good features'
+        },
+        {
+            'id': '20',
+            'title': 'Hairset Dryer',
+            'price': 500.00,
+            'vendor_id': 'vendor2',
+            'category': 'Health',
+            'image': 'assets/category_Health_&_Beauty/beauty6.jpg',
+            'description': 'Profession hairset with good quality'
+        },
+        {
+            'id': '20',
+            'title': 'Hair-massage comb',
+            'price': 499.00,
+            'vendor_id': 'vendor2',
+            'category': 'Health',
+            'image': 'assets/category_Health_&_Beauty/beauty7.jpg',
+            'description': 'Modern hair-massage comb with good quality'
         },
         {
             'id': '21',
@@ -195,7 +213,7 @@ def get_sample_ads():
         },
         {
             'id': '22',
-            'title': 'Beauty Eye Massager',
+            'title': 'Beauty Eye Massage',
             'price': 4450.00,
             'vendor_id': 'vendor2',
             'category': 'Health',
@@ -213,90 +231,133 @@ def get_sample_ads():
         },
         {
             'id': '26',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Playstation 5',
+            'price': 1999.00,
             'vendor_id': 'vendor1',
             'category': 'Entertainment',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_entertainment_&_sound/enter4.jpg',
+            'description': 'good quality Playstation 5'
         },
         {
             'id': '27',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Amazon earbud',
+            'price': 419.00,
             'vendor_id': 'vendor1',
             'category': 'Entertainment',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_entertainment_&_sound/enter5.jpg',
+            'description': 'A good quality earbud'
         },
         {
             'id': '28',
-            'title': 'TCL Smart Television',
+            'title': 'Wireless earbud',
             'price': 4450.00,
             'vendor_id': 'vendor1',
             'category': 'Entertainment',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_entertainment_&_sound/enter6.jpg',
+            'description': 'wireless earbud with earhooks'
+        },
+        {
+            'id': '28',
+            'title': 'Apple Airpods',
+            'price': 4450.00,
+            'vendor_id': 'vendor1',
+            'category': 'Entertainment',
+            'image': 'assets/category_entertainment_&_sound/enter7.jpg',
+            'description': 'A good quality airpod'
         },
         {
             'id': '29',
-            'title': 'TCL Smart Television',
+            'title': 'PS5',
             'price': 4450.00,
             'vendor_id': 'vendor1',
             'category': 'Entertainment',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_entertainment_&_sound/enter3.jpg',
+            'description': 'lastest PS5 with good quality'
         },
         {
             'id': '30',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Sound sphere',
+            'price': 2250.00,
             'vendor_id': 'vendor1',
             'category': 'Entertainment',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
+            'image': 'assets/category_entertainment_&_sound/sound_sphere.jpg',
             'description': 'A smart television with good quality'
         },
         {
             'id': '31',
-            'title': 'TCL Smart Television',
+            'title': 'Coffee machine',
             'price': 4450.00,
             'vendor_id': 'vendor1',
             'category': 'Gadgets',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_Others/others2.jpg',
+            'description': 'A coffee machine with good quality'
         },
         {
             'id': '32',
-            'title': 'TCL Smart Television',
-            'price': 4450.00,
+            'title': 'Phone charger',
+            'price': 660.00,
             'vendor_id': 'vendor1',
             'category': 'Gadgets',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_Others/others1.jpg',
+            'description': 'Latest with good quality'
         },
         {
             'id': '33',
-            'title': 'TCL Smart Television',
+            'title': 'Microwave',
             'price': 4450.00,
             'vendor_id': 'vendor1',
             'category': 'Gadgets',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_Others/others5.jpg',
+            'description': 'A microwave with good quality'
         },
         {
             'id': '34',
-            'title': 'TCL Smart Television',
+            'title': 'Camera',
             'price': 4450.00,
             'vendor_id': 'vendor1',
             'category': 'Gadgets',
-            'image': 'aassets/Category_Home_&_Office/TV1.jpg',
-            'description': 'A smart television with good quality'
+            'image': 'assets/category_Others/others6.jpg',
+            'description': 'A smart camera with good quality'
+        },
+        {
+            'id': '34',
+            'title': 'Drone',
+            'price': 4450.00,
+            'vendor_id': 'vendor1',
+            'category': 'Gadgets',
+            'image': 'assets/category_Others/others7.jpg',
+            'description': 'A drone with good quality'
+        },
+        {
+            'id': '34',
+            'title': 'Office desk-Set',
+            'price': 4450.00,
+            'vendor_id': 'vendor1',
+            'category': 'Gadgets',
+            'image': 'assets/category_Others/others8.jpg',
+            'description': 'Latest office desk'
+        },
+        {
+            'id': '34',
+            'title': 'Hisense Double Fridge',
+            'price': 4450.00,
+            'vendor_id': 'vendor1',
+            'category': 'Gadgets',
+            'image': 'assets/category_Others/others4.jpg',
+            'description': 'Latest Double Fridge with good quality'
+        
         },
     ]
 
 # The route is now registered here, which is cleaner than in main.py
 @ui.page('/category_ads') 
 def category_ads_page():    
+    # --- Authentication Check ---
+    #if not app.storage.user.get('authenticated'):
+        #ui.notify('Please log in to view categories and add items to cart.', color='negative')
+        #ui.navigate.to('/login')
+        #return
+
     q = ui.context.client.request.query_params
     # This line reads the category from the URL (e.g., ?category=Health)
     category = q.get('category') 
@@ -362,11 +423,16 @@ def create_ad_card(ad):
             
             # Action buttons
             with ui.row().classes('w-full gap-2 mt-2'):
-                ui.button('View', icon='visibility', on_click=lambda a=ad: show_view_dialog(a)).props('color=primary').classes('w-full')
+                ui.button('View', icon='visibility', on_click=lambda a=ad: handle_view_click(a)).props('color=primary').classes('w-full')
 
-def add_to_cart(ad, quantity):
-    """Placeholder function for adding an item to the cart."""
-    ui.notify(f"Added {quantity} of '{ad.get('title')}' to cart!", color='positive')
+#def add_to_cart(ad, quantity):
+    #"""Placeholder function for adding an item to the cart."""
+    # --- Authentication Check for Add to Cart ---
+    #if not app.storage.user.get('authenticated'):
+        #ui.notify('Please log in to add items to cart.', color='negative')
+       # ui.navigate.to('/login')
+      #  return
+   # ui.notify(f"Added {quantity} of '{ad.get('title')}' to cart!", color='positive')
 
 def view_ad_details(ad):
     """Navigate to ad details page"""
@@ -375,6 +441,15 @@ def view_ad_details(ad):
         ui.navigate.to(f'/view?id={ad_id}')
     else:
         ui.notify("Cannot view details: Product ID is missing.", color='negative')
+
+def handle_view_click(ad):
+    """Check for authentication before showing the view dialog."""
+    if not app.storage.user.get('authenticated'):
+        ui.notify('Please log in to view product details.', color='negative')
+        ui.navigate.to('/login')
+        return
+    # If authenticated, proceed to show the dialog
+    show_view_dialog(ad)
 
 def show_view_dialog(ad):
     """Show a dialog with product details, quantity selector, and add to cart button."""
@@ -396,6 +471,6 @@ def show_view_dialog(ad):
             quantity_input = ui.number(value=1, min=1, label='Quantity').classes('w-24')
             
             # Add to Cart Button
-            ui.button('Add to Cart', icon='add_shopping_cart', on_click=lambda: add_to_cart(ad, quantity_input.value)).props('color=primary')
+           # ui.button('Add to Cart', icon='add_shopping_cart', on_click=lambda: add_to_cart(ad, quantity_input.value)).props('color=primary')
 
     dialog.open()
