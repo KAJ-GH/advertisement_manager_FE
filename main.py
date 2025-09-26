@@ -1,6 +1,8 @@
 from nicegui import ui, app
 from pages.welcome import welcome_page
 from pages.home import home_page
+from pages.login import login_page
+from pages.signup import signup_page
 from pages.view_ads import view_ads_page
 from pages.category_ads import category_ads_page
 from components.footer import footer
@@ -34,6 +36,7 @@ def home():
     home_page()
     footer()
 
+
 @ui.page("/view")
 def view_ads():
     view_ads_page()
@@ -44,4 +47,17 @@ def category_ads():
     category_ads_page()
     footer()
 
-ui.run(port=8000, title="BeGadgetized Ads Platform", storage_secret="your-secret-key-here")
+@ui.page("/vendor/post_ad")
+def post_ad():
+    post_ad_page()
+    footer()
+
+@ui.page("/login")
+def login():
+    login_page()
+
+@ui.page("/signup")
+def signup():
+    signup_page()
+
+ui.run(title="BeGadgetized Ads Platform", storage_secret="bfghdgufdjlkhhfdj")

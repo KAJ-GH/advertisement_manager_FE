@@ -2,9 +2,10 @@ from nicegui import ui
 
 ui.add_head_html('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />')
 
+
 def footer():
     # Use ui.footer() for a clean footer component.
-        with ui.row().classes('w-full justify-around bg-purple-600'):
+        with ui.row().classes('w-full justify-around bg-purple-600 mt-24 mb-0'):
             with ui.column().classes('items-center'):
                 ui.label('BeGadgetized').classes('text-2xl font-bold mb-2')
                 ui.label('Your One-stop Hub for All Gadgets').classes('text-sm text-white font-bold')

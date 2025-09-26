@@ -7,16 +7,17 @@ from utils.api import base_url
 
 # Sample data for categories.
 CATEGORIES = [
-    {'name': 'Mobile Devices', 'icon': 'phone_iphone', 'ads': 'Browse'},
-    {'name': 'Home & Office', 'icon': 'work', 'ads': 'Browse'},
-    {'name': 'Entertainment & Sound', 'icon': 'headset', 'ads': 'Browse'},
-    {'name': 'Health & Beauty', 'icon': 'spa', 'ads': 'Browse'},
-    {'name': 'Other Gadgets', 'icon': 'devices_other', 'ads': 'Browse'},
+    {'name': 'Mobile Devices', 'icon': 'phone_iphone', 'ads': 'Browse', 'link_name': 'Mobile_Devices', 'image': 'assets/Category_Mobile_Devices/mobile_device.jpg'},
+    {'name': 'Home & Office', 'icon': 'work', 'ads': 'Browse', 'link_name': 'Office', 'image': 'assets/Category_Home_&_Office/home_office.jpg'},
+    {'name': 'Entertainment & Sound', 'icon': 'headset', 'ads': 'Browse', 'link_name': 'Entertainment', 'image': 'assets/category_entertainment_&_sound/others1.png'},
+    {'name': 'Health & Beauty', 'icon': 'spa', 'ads': 'Browse', 'link_name': 'Health', 'image': 'assets/category_Health_&_Beauty/health_beauty.jpg'},
+    {'name': 'Other Gadgets', 'icon': 'devices_other', 'ads': 'Browse', 'link_name': 'Gadgets', 'image': 'assets/category_Others/others.jpg'},
 ]
 
 # Sample data for featured ads
 FEATURED_ADS = []
 
+@ui.page('/home')
 def home_page():
     try:
         response = requests.get(f"{base_url}/advert")
@@ -60,16 +61,16 @@ def home_page():
             ui.label('Your No.1️⃣ Hub for Gadgets, Appliances & Electronics').classes('text-3xl text-white font-light')
 
             # Search and filter section
-            with ui.row().classes('w-full max-w-4xl mt-8 p-2 rounded-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm'):
+            #with ui.row().classes('w-full max-w-4xl mt-8 p-2 rounded-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm'):
                 # Location dropdown
                 #ui.select(['Mobile Devices', 'Health & Beauty', 'Entertainment & Sound', 'Home & Office'], value='Mobile Devices') \
                     #.classes('w-40 bg-transparent text-gray-800 rounded-l-full px-4')
                 
                 # Search bar
-                ui.input(placeholder='What are you looking for?').classes('flex-grow px-8 py-2 text-lg text-gray-800 bg-transparent border-none focus:outline-none')
+        ui.input(placeholder='What are you looking for?').classes('flex-grow px-8 py-2 text-lg text-gray-800 bg-transparent border-none focus:outline-none')
                 
                 # Search button
-                ui.button(icon='search').classes('bg-green-600 hover:bg-green-700 px-3 py-3 text-white rounded-full transition-colors')
+        #ui.button(icon='search').classes('bg-green-600 hover:bg-green-700 px-3 py-3 text-white rounded-full transition-colors')
 
     # Categories section below the hero
     with ui.column().classes('w-full items-center -mt-24 relative z-30 p-8'):
@@ -81,10 +82,10 @@ def home_page():
                     for category in CATEGORIES[i:i+chunk_size]:
                         with ui.card().classes(
                             'group w-64 h-56 relative p-0 overflow-hidden transform transition-transform hover:scale-105 shadow-xl cursor-pointer'
-                        ).on('click', lambda e, name=category['name']: ui.navigate.to(f'/category?category={name}')):
+                        ).on('click', lambda e, name=category['link_name']: ui.navigate.to(f'/category_ads?category={name}')):
                         
                             # Category image background
-                            ui.image(f'assets/category_{category["name"].replace(" ", "_")}.jpg').classes('w-full h-full object-cover')
+                            ui.image(category['image']).classes('w-full h-full object-cover')
 
                             # Dark overlay
                             ui.element('div').classes('absolute inset-0 bg-black opacity-40')
@@ -117,7 +118,7 @@ def home_page():
                         ui.label(f"₵{ad.get('price', 0):.2f}").classes('text-2xl font-bold text-blue-600')
                         ad_id = ad.get('id') or ad.get('_id')
                         ui.button('View Details', on_click=lambda ad_id=ad_id: ui.navigate.to(f'/view?id={ad_id}'))
-                        ui.button('Edit', on_click=lambda ad_id=ad_id: ui.navigate.to(f'/edit_event?id={ad_id}'))
+                        ui.button('Edit', on_click=lambda ad_id=ad_id: ui.navigate.to(f'/vendor/edit_ad?id={ad_id}'))
 
     # Call to Action Section (New)
     with ui.element('div').classes('w-full flex items-center justify-center my-12'):
@@ -127,4 +128,7 @@ def home_page():
         ):
             ui.label('Post Your Ad Today!').classes('text-4xl font-bold md:text-5xl')
             ui.label('Got something to sell? Reach thousands of potential buyers in minutes.').classes('text-lg font-light md:text-xl')
-            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/add_event')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
+            ui.button('Post an Ad', on_click=lambda: ui.navigate.to('/vendor/post_ad')).classes('bg-purple-600 hover:bg-green-700 text-white px-8 py-4 rounded-full transition-color')
+            #ui.image()
+
+        

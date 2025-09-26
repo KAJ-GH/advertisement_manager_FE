@@ -3,7 +3,7 @@ import requests
 from components.sidebar import show_sidebar
 from utils.api import base_url
 
-@ui.page('/edit_event')
+@ui.page('/vendor/edit_ad')
 def edit_ad_page():
     q = ui.context.client.request.query_params
     ad_id = q.get('id')
@@ -34,7 +34,7 @@ def edit_ad_page():
         with ui.column().classes("w-[80%]"):
   
     # Full screen background image container
-            with ui.element('div').classes('w-full h-screen relative').style('background-image: url(assests/ecommerce-3640321_1280.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;'):
+            with ui.element('div').classes('w-full h-screen relative').style('background-image: url(/assets/ecommerce-3640321_1280.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;'):
                 
                 # Centered form container
                 with ui.element('div').classes('relative z-10 w-full h-full flex items-center justify-center p-8'):

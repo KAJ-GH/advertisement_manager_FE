@@ -1,1 +1,2 @@
-base_url="https://advert-api-9hqx.onrender.com"
+# utils/api.py
+base_url = "http://127.0.0.1:8000"  # Replace with your actual backend URL

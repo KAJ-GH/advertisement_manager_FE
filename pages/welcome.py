@@ -1,5 +1,6 @@
 from nicegui import ui
 
+@ui.page('/')
 def welcome_page():
     # Define a custom CSS keyframe animation for the background fade-in
     ui.add_head_html('''
